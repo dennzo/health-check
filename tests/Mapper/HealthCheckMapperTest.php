@@ -16,48 +16,34 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Dennzo\Monitoring;
+namespace Mapper;
 
 use Dennzo\Monitoring\Mapper\HealthCheckMapper;
 use Dennzo\Monitoring\Model\HealthCheckRequest;
-use Dennzo\Monitoring\Model\HealthCheckResponse;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class MonitoringTools
- * @package Dennzo\Monitoring
+ * Class HealthCheckMapperTest
+ * @package Mapper
  */
-final class MonitoringTools
+class HealthCheckMapperTest extends TestCase
 {
-    /**
-     * You can also get the object directly as a json string.
-     *
-     * @param HealthCheckRequest|null $healthCheckRequest
-     * @return string
-     */
-    public static function provideHealthCheckAsJson($healthCheckRequest = null)
-    {
-        $healthCheckResponse = static::provideHealthCheckAsObject($healthCheckRequest);
-
-        return json_encode($healthCheckResponse);
-    }
-
-    /**
-     * This method provides basic information about an instance.
-     * Hereby a basic status, which environment and what version is deployed.
-     *
-     * @param HealthCheckRequest|null $healthCheckRequest
-     * @return HealthCheckResponse
-     */
-    public static function provideHealthCheckAsObject($healthCheckRequest = null)
+    public function test_mapper()
     {
         $mapper = new HealthCheckMapper();
 
-        if (null === $healthCheckRequest) {
-            // @codeCoverageIgnoreStart
-            $healthCheckRequest = new HealthCheckRequest();
-            // @codeCoverageIgnoreEnd
-        }
+        $request = new HealthCheckRequest();
+        $request
+            ->setApplicationName('foo')
+            ->setEnvironment('test')
+            ->setVersion(1.0)
+            ->setEnvironmentVariableName('FOO');
 
-        return $mapper->map($healthCheckRequest);
+        $response = $mapper->map($request);
+
+        self::assertEquals('OK', $response->getStatus());
+        self::assertEquals('foo', $response->getApplicationName());
+        self::assertEquals('1.0', $response->getVersion());
+        self::assertEquals('test', $response->getEnvironment());
     }
 }

@@ -31,39 +31,84 @@ use Dennzo\Monitoring\Util\GitDetector;
 class HealthCheckMapper
 {
     /**
-     * @param HealthCheckRequest $healthCheckRequest
+     * @var HealthCheckRequest
+     */
+    private $request;
+
+    /**
+     * @var HealthCheckResponse
+     */
+    private $response;
+
+    /**
+     * @param HealthCheckRequest $request
      * @return HealthCheckResponse
      */
-    public function map(HealthCheckRequest $healthCheckRequest)
+    public function map(HealthCheckRequest $request)
     {
-        $healthCheck = (new HealthCheckResponse())
+        $this->request = $request;
+
+        $this->response = (new HealthCheckResponse())
             // Setting the defaults. Will be overridden below if a healthCheckRequest is provided and filled
             ->setStatus('OK')
             ->setEnvironment(false);
 
-        if ($healthCheckRequest->hasVersion()) {
-            $healthCheck->setVersion($healthCheckRequest->getVersion());
-        } elseif (CommandChecker::commandExist('git')) {
-            $healthCheck->setVersion(GitDetector::getTag());
-        }
+        $this->mapVersion();
+        $this->mapApplicationName();
+        $this->mapEnvironment();
+        $this->mapStatus();
 
-        if ($healthCheckRequest->hasApplicationName()) {
-            $healthCheck->setApplicationName($healthCheckRequest->getApplicationName());
-        } elseif (CommandChecker::commandExist('git')) {
-            $healthCheck->setApplicationName(GitDetector::getApplicationName());
-        }
 
-        if ($healthCheckRequest->hasEnvironment()) {
-            $healthCheck->setEnvironment($healthCheckRequest->getEnvironment());
+        return $this->response;
+    }
+
+    /**
+     * @return void
+     */
+    private function mapVersion()
+    {
+        if ($this->request->hasVersion()) {
+            $this->response->setVersion($this->request->getVersion());
+            // @codeCoverageIgnoreStart
+        } elseif (CommandChecker::commandExist('git')) {
+            $this->response->setVersion(GitDetector::getTag());
+            // @codeCoverageIgnoreEnd
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function mapApplicationName()
+    {
+        if ($this->request->hasApplicationName()) {
+            $this->response->setApplicationName($this->request->getApplicationName());
+            // @codeCoverageIgnoreStart
+        } elseif (CommandChecker::commandExist('git')) {
+            $this->response->setApplicationName(GitDetector::getApplicationName());
+            // @codeCoverageIgnoreEnd
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function mapEnvironment()
+    {
+        if ($this->request->hasEnvironment()) {
+            $this->response->setEnvironment($this->request->getEnvironment());
         } else {
-            $variableName = ($healthCheckRequest->hasEnvironmentVariableName()) ? $healthCheckRequest->getEnvironmentVariableName() : null;
-            $healthCheck->setEnvironment(EnvironmentDetector::provideEnvironment($variableName));
+            // @codeCoverageIgnoreStart
+            $variableName = ($this->request->hasEnvironmentVariableName()) ? $this->request->getEnvironmentVariableName() : null;
+            $this->response->setEnvironment(EnvironmentDetector::provideEnvironment($variableName));
+            // @codeCoverageIgnoreEnd
         }
+    }
 
-        if ($healthCheckRequest->hasStatus()) {
-            $healthCheck->setStatus($healthCheckRequest->getStatus());
+    private function mapStatus()
+    {
+        if ($this->request->hasStatus()) {
+            $this->response->setStatus($this->request->getStatus());
         }
-
-        return $healthCheck;
     }
 }
