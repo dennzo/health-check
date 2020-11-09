@@ -1,7 +1,7 @@
 ---
 name: 🐛 Bug Report
 about: Report problems that should not occur.
-labels: Bug
+labels: bug
 ---
 
 ### Version information
