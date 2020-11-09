@@ -1,0 +1,8 @@
+## Folders
+.idea/
+vendor/
+build/
+
+## Files
+.DS_Store
+.phpunit.result.cache
