@@ -3,7 +3,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/dennzo/monitoring-tools?style=flat-square)
 ![Travis (.com)](https://img.shields.io/travis/com/dennzo/monitoring-tools?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/dennzo/monitoring-tools?style=flat-square)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/dennzo/monitoring-tools?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/v/tag/dennzo/monitoring-tools?style=flat-square)
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/dennzo/monitoring-tools?style=flat-square)
 
 
