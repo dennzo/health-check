@@ -1,5 +1,5 @@
 {
-  "name": "dennzo/monitoring-tools",
+  "name": "dennzo/health-check",
   "license": "MIT",
   "type": "library",
   "description": "A library containing tools for outputting json information for monitoring systems.",
@@ -7,6 +7,7 @@
     "monitoring",
     "health_check",
     "health",
+    "check",
     "json"
   ],
   "authors": [
