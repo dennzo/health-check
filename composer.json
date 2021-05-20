@@ -1,5 +1,5 @@
 {
-  "name": "made/health-check",
+  "name": "made-dev/health-check",
   "license": "MIT",
   "type": "library",
   "description": "A library containing tools for outputting json information for monitoring systems.",
