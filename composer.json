@@ -1,5 +1,5 @@
 {
-  "name": "dennzo/health-check",
+  "name": "made/health-check",
   "license": "MIT",
   "type": "library",
   "description": "A library containing tools for outputting json information for monitoring systems.",
