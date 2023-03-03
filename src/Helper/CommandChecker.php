@@ -16,7 +16,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Dennzo\Monitoring\Util;
+namespace Dennzo\Monitoring\Helper;
 
 /**
  * Class CommandChecker
@@ -24,11 +24,7 @@ namespace Dennzo\Monitoring\Util;
  */
 final class CommandChecker
 {
-    /**
-     * @param string $command
-     * @return bool
-     */
-    public static function commandExist($command)
+    public static function commandExist(string $command): bool
     {
         return !empty(exec(`command -v ` . escapeshellarg($command)));
     }

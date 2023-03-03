@@ -3,7 +3,7 @@
 namespace Dennzo\Test\Monitoring\Util;
 
 use Dennzo\Monitoring\Model\HealthCheckRequest;
-use Dennzo\Monitoring\Util\EnvironmentDetector;
+use Dennzo\Monitoring\Helper\EnvironmentDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -87,7 +87,9 @@ class EnvironmentDetectorTest extends TestCase
     public function test_environment_variable_with_overridden_superglobal_variable_server()
     {
         $_SERVER['FOO'] = 'BAR';
-        $request = (new HealthCheckRequest())->setEnvironmentVariableName('FOO');
+        $request = new HealthCheckRequest();
+        $request->setEnvironmentVariableName('FOO');
+
         self::assertEquals('BAR', EnvironmentDetector::provideEnvironment($request->getEnvironmentVariableName()));
 
         unset($_ENV['FOO']);

@@ -33,11 +33,10 @@ class HealthCheckMapperTest extends TestCase
         $mapper = new HealthCheckMapper();
 
         $request = new HealthCheckRequest();
-        $request
-            ->setApplicationName('foo')
-            ->setEnvironment('test')
-            ->setVersion(1.0)
-            ->setEnvironmentVariableName('FOO');
+        $request->setApplicationName('foo');
+        $request->setEnvironment('test');
+        $request->setVersion('1.0');
+        $request->setEnvironmentVariableName('FOO');
 
         $response = $mapper->map($request);
 

@@ -31,12 +31,11 @@ final class MonitoringTools
     /**
      * You can also get the object directly as a json string.
      *
-     * @param HealthCheckRequest|null $healthCheckRequest
-     * @return string
+     * The parameter $healthCheckRequest is optional, because it can also be generated automatically.
      */
-    public static function provideHealthCheckAsJson($healthCheckRequest = null)
+    public static function provideHealthCheckAsJson(?HealthCheckRequest $healthCheckRequest = null): string
     {
-        $healthCheckResponse = static::provideHealthCheckAsObject($healthCheckRequest);
+        $healthCheckResponse = MonitoringTools::provideHealthCheckAsObject($healthCheckRequest);
 
         return json_encode($healthCheckResponse);
     }
@@ -45,10 +44,9 @@ final class MonitoringTools
      * This method provides basic information about an instance.
      * Hereby a basic status, which environment and what version is deployed.
      *
-     * @param HealthCheckRequest|null $healthCheckRequest
-     * @return HealthCheckResponse
+     * The parameter $healthCheckRequest is optional, because it can also be generated automatically.
      */
-    public static function provideHealthCheckAsObject($healthCheckRequest = null)
+    public static function provideHealthCheckAsObject(?HealthCheckRequest $healthCheckRequest = null): HealthCheckResponse
     {
         $mapper = new HealthCheckMapper();
 

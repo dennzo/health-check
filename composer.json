@@ -14,21 +14,16 @@
     {
       "name": "Dennis Barlowe",
       "email": "dennis@dennzo.com",
-      "homepage": "https://dennzo.com",
+      "homepage": "https://dennzo.dev",
       "role": "Developer"
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.4",
     "ext-json": "*"
   },
   "config": {
     "sort-packages": true
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "4.x-dev"
-    }
   },
   "autoload": {
     "psr-4": {

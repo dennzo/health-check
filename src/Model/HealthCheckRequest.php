@@ -24,158 +24,88 @@ namespace Dennzo\Monitoring\Model;
  */
 class HealthCheckRequest
 {
-    /**
-     * @var string|null
-     */
-    private $status;
+    private ?string $status = null;
 
-    /**
-     * @var string
-     */
-    private $applicationName;
+    private ?string $applicationName = null;
 
-    /**
-     * @var string|null
-     */
-    private $version;
+    private ?string $version = null;
 
-    /**
-     * @var string|null
-     */
-    private $environment;
+    private ?string $environment = null;
 
-    /**
-     * @var string|null
-     */
-    private $environmentVariableName;
+    private ?string $environmentVariableName = null;
 
-    /**
-     * @return bool
-     */
-    public function hasStatus()
+    public function hasStatus(): bool
     {
         return !empty($this->status);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasApplicationName()
+    public function hasApplicationName(): bool
     {
         return !empty($this->applicationName);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasVersion()
+    public function hasVersion(): bool
     {
         return !empty($this->version);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasEnvironment()
+    public function hasEnvironment(): bool
     {
         return !empty($this->environment);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasEnvironmentVariableName()
+    public function hasEnvironmentVariableName(): bool
     {
         return !empty($this->environmentVariableName);
     }
 
-    /**
-     * @return string|null
-     */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @param string|null $status
-     * @return HealthCheckRequest
-     */
-    public function setStatus($status)
+    public function setStatus(?string $status): void
     {
         $this->status = $status;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getApplicationName()
+    public function getApplicationName(): ?string
     {
         return $this->applicationName;
     }
 
-    /**
-     * @param string $applicationName
-     * @return HealthCheckRequest
-     */
-    public function setApplicationName($applicationName)
+    public function setApplicationName(?string $applicationName): void
     {
         $this->applicationName = $applicationName;
-        return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getVersion()
+    public function getVersion(): ?string
     {
         return $this->version;
     }
 
-    /**
-     * @param string|null $version
-     * @return HealthCheckRequest
-     */
-    public function setVersion($version)
+    public function setVersion(?string $version): void
     {
         $this->version = $version;
-        return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getEnvironment()
+    public function getEnvironment(): ?string
     {
         return $this->environment;
     }
 
-    /**
-     * @param string|null $environment
-     * @return HealthCheckRequest
-     */
-    public function setEnvironment($environment)
+    public function setEnvironment(?string $environment): void
     {
         $this->environment = $environment;
-        return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getEnvironmentVariableName()
+    public function getEnvironmentVariableName(): ?string
     {
         return $this->environmentVariableName;
     }
 
-    /**
-     * @param string|null $environmentVariableName
-     * @return HealthCheckRequest
-     */
-    public function setEnvironmentVariableName($environmentVariableName)
+    public function setEnvironmentVariableName(?string $environmentVariableName): void
     {
         $this->environmentVariableName = $environmentVariableName;
-        return $this;
     }
 }

@@ -20,9 +20,9 @@ namespace Dennzo\Monitoring\Mapper;
 
 use Dennzo\Monitoring\Model\HealthCheckRequest;
 use Dennzo\Monitoring\Model\HealthCheckResponse;
-use Dennzo\Monitoring\Util\CommandChecker;
-use Dennzo\Monitoring\Util\EnvironmentDetector;
-use Dennzo\Monitoring\Util\GitDetector;
+use Dennzo\Monitoring\Helper\CommandChecker;
+use Dennzo\Monitoring\Helper\EnvironmentDetector;
+use Dennzo\Monitoring\Helper\GitDetector;
 
 /**
  * Class HealthCheckMapper
@@ -30,28 +30,18 @@ use Dennzo\Monitoring\Util\GitDetector;
  */
 class HealthCheckMapper
 {
-    /**
-     * @var HealthCheckRequest
-     */
-    private $request;
+    private HealthCheckRequest $request;
 
-    /**
-     * @var HealthCheckResponse
-     */
-    private $response;
+    private HealthCheckResponse $response;
 
-    /**
-     * @param HealthCheckRequest $request
-     * @return HealthCheckResponse
-     */
-    public function map(HealthCheckRequest $request)
+    public function map(HealthCheckRequest $request): HealthCheckResponse
     {
         $this->request = $request;
 
-        $this->response = (new HealthCheckResponse())
-            // Setting the defaults. Will be overridden below if a healthCheckRequest is provided and filled
-            ->setStatus('OK')
-            ->setEnvironment(false);
+        $this->response = new HealthCheckResponse();
+        // Setting the defaults. Will be overridden below if a healthCheckRequest is provided and filled
+        $this->response->setStatus('OK');
+        $this->response->setEnvironment(false);
 
         $this->mapVersion();
         $this->mapApplicationName();
@@ -62,10 +52,7 @@ class HealthCheckMapper
         return $this->response;
     }
 
-    /**
-     * @return void
-     */
-    private function mapVersion()
+    private function mapVersion(): void
     {
         if ($this->request->hasVersion()) {
             $this->response->setVersion($this->request->getVersion());

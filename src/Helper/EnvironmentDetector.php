@@ -16,31 +16,40 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Dennzo\Monitoring\Util;
+namespace Dennzo\Monitoring\Helper;
 
 /**
- * Class GitDetector
+ * Class EnvironmentDetector
  * @package Dennzo\Monitoring\Util
  */
-final class GitDetector
+final class EnvironmentDetector
 {
     /**
-     * @return string|null
+     * These are all environment variables which are used for automatic detecting the environment.
+     * The order of the array is the order in which the variables are checked.
      */
-    public static function getTag()
-    {
-        exec('git describe --tags --abbrev=0', $gitVersion);
-
-        return isset($gitVersion[0]) ? $gitVersion[0] : null;
-    }
+    const ENVIRONMENT_VARIABLES = [
+        'APP_ENV',
+        'SYMFONY_ENV',
+        'APPLICATION_ENV',
+    ];
 
     /**
+     * @param string|null $variableName Name of the environment variable to check for in $_SERVER and $_ENV
      * @return string|null
      */
-    public static function getApplicationName()
+    public static function provideEnvironment(string $variableName = null): ?string
     {
-        exec('basename -s .git `git config --get remote.origin.url`', $applicationName);
+        if (null !== $variableName && (isset($_SERVER[$variableName]) || isset($_ENV[$variableName]))) {
+            return $_SERVER[$variableName] = $_ENV[$variableName] = ($_SERVER[$variableName]) ? $_SERVER[$variableName] : $_ENV[$variableName];
+        }
 
-        return isset($applicationName[0]) ? $applicationName[0] : null;
+        foreach (EnvironmentDetector::ENVIRONMENT_VARIABLES as $name) {
+            if (isset($_SERVER[$name]) || isset($_ENV[$name])) {
+                return $_SERVER[$name] = $_ENV[$name] = $_SERVER[$name] ?? $_ENV[$name];
+            }
+        }
+
+        return 'dev';
     }
 }

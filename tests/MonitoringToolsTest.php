@@ -4,7 +4,7 @@ namespace Dennzo\Test\Monitoring;
 
 use Dennzo\Monitoring\Model\HealthCheckRequest;
 use Dennzo\Monitoring\MonitoringTools;
-use Dennzo\Monitoring\Util\GitDetector;
+use Dennzo\Monitoring\Helper\GitDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,13 +35,14 @@ class MonitoringToolsTest extends TestCase
     }
 
 
-
     private function getRequest()
     {
-        return (new HealthCheckRequest())
-            ->setStatus('OK')
-            ->setVersion('13.3.7')
-            ->setApplicationName('test')
-            ->setEnvironment('dev');
+        $request = new HealthCheckRequest();
+        $request->setStatus('OK');
+        $request->setVersion('13.3.7');
+        $request->setApplicationName('test');
+        $request->setEnvironment('dev');
+
+        return $request;
     }
 }

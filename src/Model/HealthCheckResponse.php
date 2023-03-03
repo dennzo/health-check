@@ -26,25 +26,13 @@ use JsonSerializable;
  */
 class HealthCheckResponse implements JsonSerializable
 {
-    /**
-     * @var string
-     */
-    private $status;
+    private ?string $status = null;
 
-    /**
-     * @var string
-     */
-    private $applicationName;
+    private ?string $applicationName = null;
 
-    /**
-     * @var string
-     */
-    private $version;
+    private ?string $version = null;
 
-    /**
-     * @var string
-     */
-    private $environment;
+    private ?string $environment = null;
 
     /**
      * @inheritDoc
@@ -54,75 +42,43 @@ class HealthCheckResponse implements JsonSerializable
         return get_object_vars($this);
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     * @return HealthCheckResponse
-     */
-    public function setStatus($status)
+    public function setStatus(?string $status): void
     {
         $this->status = $status;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getApplicationName()
+    public function getApplicationName(): ?string
     {
         return $this->applicationName;
     }
 
-    /**
-     * @param string $applicationName
-     * @return HealthCheckResponse
-     */
-    public function setApplicationName($applicationName)
+    public function setApplicationName(?string $applicationName): void
     {
         $this->applicationName = $applicationName;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): ?string
     {
         return $this->version;
     }
 
-    /**
-     * @param string $version
-     * @return HealthCheckResponse
-     */
-    public function setVersion($version)
+    public function setVersion(?string $version): void
     {
         $this->version = $version;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEnvironment()
+    public function getEnvironment(): ?string
     {
         return $this->environment;
     }
 
-    /**
-     * @param string $environment
-     * @return HealthCheckResponse
-     */
-    public function setEnvironment($environment)
+    public function setEnvironment(?string $environment): void
     {
         $this->environment = $environment;
-        return $this;
     }
 }
